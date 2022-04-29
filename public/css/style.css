@@ -1,0 +1,12 @@
+body{
+    background-color: rgb(233, 230, 225);
+}
+
+#form-question{
+    margin-top: 5vh;
+}
+
+.navbar{
+    display: block;
+    
+}
