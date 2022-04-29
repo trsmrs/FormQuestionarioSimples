@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const connection = require('./database/database')
 const PerguntasModel = require('./database/Pergunta')
-const Pergunta = require('./database/Pergunta')
+
 
 // Database
 connection.authenticate().then(()=>{
@@ -31,9 +31,10 @@ const port = process.env.PORT || 8080
 
 // ROTAS
 app.get('/', (req, res)=>{ 
-    Pergunta.findAll({ raw: true }).then(perguntas =>{
-        console.log(perguntas)
-    
+    PerguntasModel.findAll({ raw: true, order:[
+        ['id', 'DESC']
+    ]}).then(perguntas =>{
+        
     // SELECT * From Perguntas
     res.render('index',{
         title: "Página Inícial",
@@ -60,7 +61,21 @@ app.post('/salvarpergunta', (req, res)=>{
    })
 })
 
-
+app.get('/pergunta/:id', (req, res) => {
+  let _id = req.params.id
+  PerguntasModel.findOne({
+      where: {id: _id}
+  }).then(pergunta =>{
+      if(pergunta != undefined){
+        res.render('pergunta',{
+            title: "Resultados de Pesquisa",
+            pergunta: pergunta
+        })
+      } else{
+        res.redirect('/')
+      }
+  })
+})
 
 
 
