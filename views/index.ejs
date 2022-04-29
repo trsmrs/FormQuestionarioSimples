@@ -8,7 +8,7 @@
   <%- include('./partials/navbar.ejs') %>
   
   <div class="container">
-    <hr>  
+    
     <h1>Perguntas</h1>
     <hr>
     <a href="/perguntas" class="btn btn-primary">Perguntar</a>
@@ -18,6 +18,7 @@
         <div class="card">
             <div class="card-body">
                 <h3><%= pergunta.titulo %></h3>
+                <span><%= pergunta.descricao %></span>
             </div>
             <div class="card-footer">
                 <button class="btn btn-primary">Responder</button>
