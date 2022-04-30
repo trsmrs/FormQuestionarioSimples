@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const connection = require('./database/database')
 const PerguntasModel = require('./database/Pergunta')
+const RespostasModel = require('./database/Resposta')
 
 
 // Database
@@ -77,6 +78,17 @@ app.get('/pergunta/:id', (req, res) => {
   })
 })
 
+app.post('/responder',(req, res)=>{
+    let corpo = req.body.corpo
+    let perguntaId = req.body.pergunta
+    RespostasModel.create({
+        corpo: corpo,
+        perguntaId: perguntaId
+    }).then(()=>{
+        res.redirect("/pergunta/"+perguntaId)
+        // console.log('respondido')
+    })
+})
 
 
 
